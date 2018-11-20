@@ -19,7 +19,14 @@ else
 fi
 done
 
-#cd ../
+if [ -e ../data/output ]; then
+   echo '../data/output/already exists.'
+else
+   mkdir -p ../data/output
+fi
 
-#mvn compile
-#mvn exec:java -e -Dexec.mainClass="Main" -Dexec.args=$CONFIG_FILE
+cd ../
+
+mvn clean install
+mvn compile
+mvn exec:java -e -Dexec.mainClass="Main" -Dexec.args=$CONFIG_FILE

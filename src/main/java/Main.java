@@ -12,6 +12,7 @@ public class Main {
         configProperties prop = new configProperties();
         createDataset test;
         test = new createDataset();
+	prop.setArgs(args);
 
         BufferedReader labelsIn=prop.getFileIn("labels");
         BufferedWriter labelsOut=prop.getFileOut("labels");
@@ -28,7 +29,6 @@ public class Main {
         BufferedReader wikiDumpIn=prop.getFileIn("wikiDump");
         BufferedWriter wikiDumpOut=prop.getFileOut("wikiDump");
 
-        prop.setArgs(args);
         test.readFile(labelsIn, labelsOut);
         test.findRedirects(redirectsIn, redirectsOut);
         test.findGoodURIs(labelsIn, labelsOut);

@@ -57,43 +57,43 @@ public class configProperties {
             switch(file)
             {
                 case "labels":
-                    paths= labelsProperties(input).split("-");
+                    paths= labelsProperties(input).split("\\+");
                     inputPath=paths[0];
                     outputPath=paths[1];
                 break;
 
                 case "redirects":
-                    paths= redirectsProperties(input).split("-");
+                    paths= redirectsProperties(input).split("\\+");
                     inputPath=paths[0];
                     outputPath=paths[1];
                 break;
 
                 case "disambiguations":
-                    paths= disambiguationsProperties(input).split("-");
+                    paths= disambiguationsProperties(input).split("\\+");
                     inputPath=paths[0];
                     outputPath=paths[1];
                 break;
 
                 case "instance_types":
-                    paths= instance_typesProperties(input).split("-");
+                    paths= instance_typesProperties(input).split("\\+");
                     inputPath=paths[0];
                     outputPath=paths[1];
                 break;
 
                 case "links":
-                    paths= linkProperties(input).split("-");
+                    paths= linkProperties(input).split("\\+");
                     inputPath=paths[0];
                     outputPath=paths[1];
                 break;
 
                 case "images":
-                    paths= imagesProperties(input).split("-");
+                    paths= imagesProperties(input).split("\\+");
                     inputPath=paths[0];
                     outputPath=paths[1];
                 break;
 
                 case "wikiDump":
-                    paths=wikiDumpProperties(input).split("-");
+                    paths=wikiDumpProperties(input).split("\\+");
                     inputPath=paths[0];
                     outputPath=paths[1];
                 break;
@@ -123,49 +123,49 @@ public class configProperties {
         String redirectPath = config.getProperty("datasets.data.labels", "").trim();
         String outputPath = config.getProperty("datasets.data.output.labels", "").trim();
 
-        return redirectPath+"-"+outputPath;
+        return redirectPath+"+"+outputPath;
     }
 
     private String redirectsProperties(InputStream input){
         String redirectPath = config.getProperty("datasets.data.redirects", "").trim();
         String outputPath = config.getProperty("datasets.data.output.redirects", "").trim();
 
-        return redirectPath+"-"+outputPath;
+        return redirectPath+"+"+outputPath;
     }
 
     private String disambiguationsProperties(InputStream input){
         String redirectPath = config.getProperty("datasets.data.disambiguations", "").trim();
         String outputPath = config.getProperty("datasets.data.output.disambiguations", "").trim();
 
-        return redirectPath+"-"+outputPath;
+        return redirectPath+"+"+outputPath;
     }
 
     private String instance_typesProperties(InputStream input){
         String redirectPath = config.getProperty("datasets.data.instance_types", "").trim();
         String outputPath = config.getProperty("datasets.data.output.instance_types", "").trim();
 
-        return redirectPath+"-"+outputPath;
+        return redirectPath+"+"+outputPath;
     }
 
     private String wikiDumpProperties(InputStream input){
         String redirectPath = config.getProperty("datasets.data.wikiDump", "").trim();
         String outputPath = config.getProperty("datasets.data.output.wikiDump", "").trim();
 
-        return redirectPath+"-"+outputPath;
+        return redirectPath+"+"+outputPath;
     }
 
     private String linkProperties(InputStream input){
         String redirectPath = config.getProperty("datasets.data.links", "").trim();
         String outputPath = config.getProperty("datasets.data.output.links", "").trim();
 
-        return redirectPath+"-"+outputPath;
+        return redirectPath+"+"+outputPath;
     }
 
     private String imagesProperties(InputStream input){
         String redirectPath = config.getProperty("datasets.data.images", "").trim();
         String outputPath = config.getProperty("datasets.data.output.images", "").trim();
 
-        return redirectPath+"-"+outputPath;
+        return redirectPath+"+"+outputPath;
     }
 
 }
