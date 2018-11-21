@@ -20,10 +20,8 @@ public class createDataset {
     */
 
     protected void readFile(BufferedReader in, BufferedWriter out){
-
         Properties config = new Properties();
         try {
-
             String line;
             while ((line = in.readLine()) != null && cnt <= N) {
                 Scanner s = new Scanner(line);
@@ -33,7 +31,6 @@ public class createDataset {
                 out.newLine();
                 if (cnt > 0) {
                     labels.add(label);
-
                     addTitle(label);
                 }
                 s.close();
@@ -72,7 +69,6 @@ public class createDataset {
                 s.close();
             }
             out.close();
-
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
