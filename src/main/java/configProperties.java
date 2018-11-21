@@ -46,7 +46,7 @@ public class configProperties {
     }
 
 
-    private String setProperties(String file, String type) {
+    private String setProperties(String file, String type){
 
         String path="";
         try {
