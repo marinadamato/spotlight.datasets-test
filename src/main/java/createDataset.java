@@ -9,26 +9,17 @@ public class createDataset {
     private int flag=0;
     private int flag2=0;
     private int flag3=0;
-    private int count=0;
-    ArrayList labels=new ArrayList();
-    ArrayList redirects=new ArrayList();
-    ArrayList title=new ArrayList();
+    private ArrayList labels=new ArrayList();
+    private ArrayList redirects=new ArrayList();
+    private ArrayList title=new ArrayList();
     private String[] args;
-
-    public void createDataset(){
-        //     this.args=args;
-    }
-
-    public void setArgs(String[] args){
-        this.args=args;
-    }
 
     /*
         readFile reads the labels_en.nt file, copies the first N URIs in the output file and saves the N labels
         in an ArrayList which is useful for the next steps
     */
 
-    public void readFile(BufferedReader in, BufferedWriter out) {
+    protected void readFile(BufferedReader in, BufferedWriter out) {
 
         Properties config = new Properties();
 
@@ -70,7 +61,7 @@ public class createDataset {
          it also saves the redirection labels into a new ArrayList
      */
 
-    public void findRedirects(BufferedReader in, BufferedWriter out)
+    protected void findRedirects(BufferedReader in, BufferedWriter out)
     {
 
         Properties config=new Properties();
@@ -84,8 +75,8 @@ public class createDataset {
 
                 if(line.contains("#"))
                 {
-                    out.append(line);
-                    out.append("\n");
+                    out.write(line);
+                    out.newLine();
                 }
 
                 Scanner s = new Scanner(line);
@@ -97,14 +88,15 @@ public class createDataset {
 
                 if(labels.contains(label))
                 {
-                    out.append(line);
-                    out.append("\n");
+                    out.write(line);
+                    out.newLine();
                     redirects.add(redirect);
 
                 }
 
                 s.close();
             }
+            out.close();
 
         }catch(IOException e){
             System.out.println(e.getMessage());
@@ -116,7 +108,7 @@ public class createDataset {
          of these files which contain references to the original or redirection labels of the two ArrayList
      */
 
-    public void findLabels(BufferedReader in, BufferedWriter out)
+    protected void findLabels(BufferedReader in, BufferedWriter out)
     {
 
         try
@@ -133,13 +125,14 @@ public class createDataset {
 
                 if(redirects.contains(label) || labels.contains(label))
                 {
-                    out.append(line);
-                    out.append("\n");
+                    out.write(line);
+                    out.write("\n");
                 }
 
 
                 s.close();
             }
+            out.close();
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
@@ -149,7 +142,7 @@ public class createDataset {
          findLinks works exactly like the previous method, but it also contains the addTitle method whose functionalities are explained after
      */
 
-    public void findLinks(BufferedReader in, BufferedWriter out)
+    protected void findLinks(BufferedReader in, BufferedWriter out)
     {
         try
         {
@@ -165,14 +158,15 @@ public class createDataset {
 
                 if(redirects.contains(label) || labels.contains(label))
                 {
-                    out.append(line);
-                    out.append("\n");
+                    out.write(line);
+                    out.write("\n");
                     addTitle(link);
                 }
 
                 s.close();
 
             }
+            out.close();
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
@@ -183,7 +177,7 @@ public class createDataset {
          searching the entities in the Wikipedia Dump simple
      */
 
-    public void addTitle(String label)
+    private void addTitle(String label)
     {
         String erase1="<http://dbpedia.org/resource/";
         String erase2=">";
@@ -200,7 +194,7 @@ public class createDataset {
          or the entities found in the findLinks method
      */
 
-    public void wikiDump(BufferedReader in, BufferedWriter out)
+    protected void wikiDump(BufferedReader in, BufferedWriter out)
     {
         try
         {
@@ -210,8 +204,8 @@ public class createDataset {
 
                 if(flag3==0 && !(line.contains("<page>")))
                 {
-                    out.append(line);
-                    out.append("\n");
+                    out.write(line);
+                    out.write("\n");
                 }
 
                 if(line.contains("<page>"))
@@ -229,13 +223,13 @@ public class createDataset {
 
                         if(flag==0)
                         {
-                            out.append("<page>");
-                            out.append("\n");
+                            out.write("<page>");
+                            out.write("\n");
                             flag=1;
                         }
 
-                        out.append(line);
-                        out.append("\n");
+                        out.write(line);
+                        out.write("\n");
 
                         flag2=1;
                     }
@@ -243,15 +237,16 @@ public class createDataset {
 
                     if(flag2==1)
                     {
-                        out.append("</page>");
-                        out.append("\n");
+                        out.write("</page>");
+                        out.write("\n");
                     }
 
                 }
 
             }
 
-            out.append("</mediawiki>");
+            out.write("</mediawiki>");
+            out.close();
 
         }catch(IOException e){System.out.println(e.getMessage());}
 
@@ -262,7 +257,7 @@ public class createDataset {
          found in the redirects_en.nt file and saved in the redirects ArrayList
      */
 
-    public void findGoodURIs(BufferedReader in, BufferedWriter out)
+    protected void findGoodURIs(BufferedReader in, BufferedWriter out)
     {
         try
 
@@ -277,14 +272,14 @@ public class createDataset {
                 String label = s.next();
 
                 if (redirects.contains(label)) {
-                    out.append(line);
-                    out.append("\n");
+                    out.write(line);
+                    out.write("\n");
 
                 }
                 lastLine=line;
             }
-            out.append(lastLine);
-
+            out.write(lastLine);
+            out.close();
 
         }catch(IOException e){System.out.println(e.getMessage());}
 
