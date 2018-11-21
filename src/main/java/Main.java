@@ -12,7 +12,7 @@ public class Main {
         configProperties prop = new configProperties();
         createDataset test;
         test = new createDataset();
-	    prop.setArgs(args);
+	prop.setArgs(args);
 
         BufferedReader labelsIn=prop.getFileIn("labels");
         BufferedWriter labelsOut=prop.getFileOut("labels");
